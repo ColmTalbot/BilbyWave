@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def morlet_gabor_wavelet(
         frequency_array, amplitude, q_factor, centre_frequency,
         ellipticity, delta_time, phase):
