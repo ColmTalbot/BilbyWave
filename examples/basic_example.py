@@ -87,7 +87,7 @@ likelihood = bilby.gw.likelihood.GravitationalWaveTransient(
 
 result = bilby.run_sampler(
     likelihood=likelihood, priors=priors, sampler='dynesty', nlive=500,
-    outdir=outdir, label=label, walks=50, n_check_point=2000, poolsize=500,
+    outdir=outdir, label=label, walks=50,
     seed=int(time()), result_class=bilby.gw.result.CBCResult)
 
 # reconstruct the marginalised phase posterior
