@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 """
 Tutorial to demonstrate running parameter estimation on a reduced parameter
-space for an injected signal.
-
-This example estimates the masses using a uniform prior in both component masses
-and distance using a uniform in comoving volume prior on luminosity distance
-between luminosity distances of 100Mpc and 5Gpc, the cosmology is WMAP7.
+space for an injected signal with a single wavelet.
 """
-from __future__ import division, print_function
-
+from time import time
 import numpy as np
 import matplotlib.pyplot as plt
 import tqdm
@@ -66,9 +61,10 @@ test_like.parameters.update(injection_parameters.copy())
 
 
 # Set up prior, which is a dictionary
-priors = bilby.core.prior.ConditionalPriorDict()
-# priors['luminosity_distance'] = bilby.core.prior.LogUniform(
-#     minimum=1, maximum=10000, name='luminosity_distance')
+try:
+    priors = bilby.core.prior.ConditionalPriorDict()
+except AttributeError:
+    priors = bilby.core.prior.PriorDict()
 priors['luminosity_distance'] = bilby.core.prior.DeltaFunction(1)
 priors['geocent_time'] = bilby.core.prior.Uniform(
     minimum=injection_parameters['geocent_time'] - 0.1,
@@ -123,7 +119,6 @@ likelihood = bilby.gw.likelihood.GravitationalWaveTransient(
     time_marginalization=False, phase_marginalization=True,
     distance_marginalization=False, jitter_time=False)
 
-from time import time
 result = bilby.run_sampler(
     likelihood=likelihood, priors=priors, sampler='dynesty', nlive=500,
     outdir=outdir, label=label, walks=50, n_check_point=2000, poolsize=500,
