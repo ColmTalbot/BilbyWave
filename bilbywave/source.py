@@ -104,7 +104,7 @@ def chirplet(
                 * (phase + delta - np.pi ** 3 * beta ** 2 * delta_f ** 2)
                 / (1 + pi_beta ** 2)
             )
-            * np.exp(-q_factor ** 2 * frequency_array / centre_frequency)
+            * np.exp(-(q_factor ** 2) * frequency_array / centre_frequency)
         )
     )
     h_cross = -1j * ellipticity * h_plus
