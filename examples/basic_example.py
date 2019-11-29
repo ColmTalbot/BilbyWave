@@ -100,7 +100,7 @@ for ii in tqdm.tqdm(range(len(result.posterior))):
 result.posterior["phase"] = new_phases
 
 # do some plotting, plot the waveform and a few corner plots
-result.plot_waveform_posterior(interferometers=ifos, format="png", n_samples=1000)
+result.plot_waveform_posterior(interferometers=ifos, format="html", n_samples=1000)
 
 wavelet_params = ['q_factor', 'centre_frequency', 'amplitude', 'delta_time',
                   'phase', 'beta']
