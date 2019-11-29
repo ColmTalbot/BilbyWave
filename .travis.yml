@@ -16,5 +16,4 @@ script:
 
   - export PYTHONPATH='.'
   - pytest --cov=bilbywave
-  - codeclimate-test-reporter --file .coverage
-  - black --diff bilbywave
+  - black --check bilbywave
