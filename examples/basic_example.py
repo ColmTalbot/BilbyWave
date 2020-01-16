@@ -90,6 +90,8 @@ result = bilby.run_sampler(
     outdir=outdir, label=label, walks=50,
     seed=int(time()), result_class=bilby.gw.result.CBCResult)
 
+# add stuff
+
 # reconstruct the marginalised phase posterior
 # TODO: make this automatic, also allow for distance/time
 new_phases = list()
