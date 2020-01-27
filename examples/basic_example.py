@@ -16,11 +16,13 @@ import bilbywave
 duration = 4.
 sampling_frequency = 2048.
 
-n_wavelets = 1
+n_wavelets = 5
 
 # Specify the output directory and the name of the simulation.
 outdir = 'outdir'
-label = 'single_chirplet_{}'.format(n_wavelets)
+#label = 'single_chirplet_{}'.format(n_wavelets)
+label = 'single_chirplet_multimodality_{}'.format(n_wavelets)
+#label = 'wavelet_{}'.format(n_wavelets)
 bilby.core.utils.setup_logger(outdir=outdir, label=label)
 
 # Set up a random seed for result reproducibility.  This is optional!
@@ -72,6 +74,7 @@ priors['geocent_time'] = bilby.core.prior.Uniform(
     maximum=injection_parameters['geocent_time'] + 0.1, latex_label='$t_c$')
 
 source_model = bilbywave.source.chirplet
+#source_model = bilbywave.source.morlet_gabor_wavelet
 
 wfg = bilbywave.waveform_generator.MultiWavelet(
     duration=duration, sampling_frequency=sampling_frequency,
@@ -86,8 +89,8 @@ likelihood = bilby.gw.likelihood.GravitationalWaveTransient(
     distance_marginalization=False, jitter_time=False)
 
 result = bilby.run_sampler(
-    likelihood=likelihood, priors=priors, sampler='dynesty', nlive=500,
-    outdir=outdir, label=label, walks=50,
+    likelihood=likelihood, priors=priors, sampler='dynesty', nlive=150,
+    outdir=outdir, label=label, walks=15,
     seed=int(time()), result_class=bilby.gw.result.CBCResult)
 
 # reconstruct the marginalised phase posterior

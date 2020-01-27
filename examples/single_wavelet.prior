@@ -1,16 +1,61 @@
 # parameters consistent across all wavelets
 luminosity_distance = 1
-n_wavelets = 1
+n_wavelets = 5
 ra = Uniform(minimum=0, maximum=2 * np.pi, latex_label='$\\alpha$', boundary='periodic')
 dec = Cosine(latex_label='$\\delta$', minimum=-np.pi / 2, maximum=np.pi / 2, boundary='reflective')
 psi = Uniform(minimum=0, maximum=np.pi / 2, name=None, latex_label='$\\psi$', unit=None, boundary='periodic')
 phase = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi$')
 ellipticity = Uniform(minimum=-1, maximum=1, name=None, latex_label='$\\epsilon$', unit=None, boundary='reflective')
 
-# parameters for the first wavelet
+# parameters for the zeroeth wavelet
 q_factor_0 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_0$', boundary='reflective')
 centre_frequency_0 = Uniform(minimum=20, maximum=100, latex_label='$f_0$', unit='Hz')
 amplitude_0 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_0$')
 beta_0 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_0$', boundary='reflective')
 delta_time_0 = 0.0
 phase_0 = 0.0
+
+# parameters for the first wavelet
+q_factor_1 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_1$', boundary='reflective')
+centre_frequency_1 = Uniform(minimum=20, maximum=100, latex_label='$f_1$', unit='Hz')
+#amplitude_1 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_1$')
+amplitude_1 = bilbywave.prior.OrderedAmplitude(order=1, base_name='amplitude', latex_label='$A_1$', minimum=1e-25, maximum=1e-21)
+beta_1 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_1$', boundary='reflective')
+delta_time_1 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_1$')
+phase_1 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_1$')
+
+# parameters for the second wavelet
+q_factor_2 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_2$', boundary='reflective')
+centre_frequency_2 = Uniform(minimum=20, maximum=100, latex_label='$f_2$', unit='Hz')
+#amplitude_2 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_2$')
+amplitude_2 = bilbywave.prior.OrderedAmplitude(order=2, base_name='amplitude', latex_label='$A_2$', minimum=1e-25, maximum=1e-21)
+beta_2 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_2$', boundary='reflective')
+delta_time_2 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_2$')
+phase_2 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_2$')
+
+# parameters for the third wavelet
+q_factor_3 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_3$', boundary='reflective')
+centre_frequency_3 = Uniform(minimum=20, maximum=100, latex_label='$f_3$', unit='Hz')
+#amplitude_3 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_3$')
+amplitude_3 = bilbywave.prior.OrderedAmplitude(order=3, base_name='amplitude', latex_label='$A_3$', minimum=1e-25, maximum=1e-21)
+beta_3 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_3$', boundary='reflective')
+delta_time_3 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_3$')
+phase_3 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_3$')
+
+# parameters for the fourth wavelet
+q_factor_4 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_4$', boundary='reflective')
+centre_frequency_4 = Uniform(minimum=20, maximum=100, latex_label='$f_4$', unit='Hz')
+#amplitude_4 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_4$')
+amplitude_4 = bilbywave.prior.OrderedAmplitude(order=4, base_name='amplitude', latex_label='$A_4$', minimum=1e-25, maximum=1e-21)
+beta_4 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_4$', boundary='reflective')
+delta_time_4 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_4$')
+phase_4 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_4$')
+
+# parameters for the fifth wavelet
+q_factor_5 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_5$', boundary='reflective')
+centre_frequency_5 = Uniform(minimum=20, maximum=100, latex_label='$f_5$', unit='Hz')
+#amplitude_5 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_5$')
+amplitude_5 = bilbywave.prior.OrderedAmplitude(order=5, base_name='amplitude', latex_label='$A_5$', minimum=1e-25, maximum=1e-21)
+beta_5 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_5$', boundary='reflective')
+delta_time_5 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_5$')
+phase_5 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_5$')
