@@ -1,6 +1,6 @@
 # parameters consistent across all wavelets
 luminosity_distance = 1
-n_wavelets = 5
+n_wavelets = 10
 ra = Uniform(minimum=0, maximum=2 * np.pi, latex_label='$\\alpha$', boundary='periodic')
 dec = Cosine(latex_label='$\\delta$', minimum=-np.pi / 2, maximum=np.pi / 2, boundary='reflective')
 psi = Uniform(minimum=0, maximum=np.pi / 2, name=None, latex_label='$\\psi$', unit=None, boundary='periodic')
@@ -59,3 +59,48 @@ amplitude_5 = bilbywave.prior.OrderedAmplitude(order=5, base_name='amplitude', l
 beta_5 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_5$', boundary='reflective')
 delta_time_5 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_5$')
 phase_5 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_5$')
+
+# parameters for the sixth wavelet
+q_factor_6 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_6$', boundary='reflective')
+centre_frequency_6 = Uniform(minimum=20, maximum=100, latex_label='$f_6$', unit='Hz')
+#amplitude_6 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_6$')
+amplitude_6 = bilbywave.prior.OrderedAmplitude(order=1, base_name='amplitude', latex_label='$A_6$', minimum=1e-25, maximum=1e-21)
+beta_6 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_6$', boundary='reflective')
+delta_time_6 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_6$')
+phase_6 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_6$')
+
+# parameters for the seventh wavelet
+q_factor_7 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_7$', boundary='reflective')
+centre_frequency_7 = Uniform(minimum=20, maximum=100, latex_label='$f_7$', unit='Hz')
+#amplitude_7 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_7$')
+amplitude_7 = bilbywave.prior.OrderedAmplitude(order=2, base_name='amplitude', latex_label='$A_7$', minimum=1e-25, maximum=1e-21)
+beta_7 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_7$', boundary='reflective')
+delta_time_7 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_7$')
+phase_7 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_7$')
+
+# parameters for the eighth wavelet
+q_factor_8 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_8$', boundary='reflective')
+centre_frequency_8 = Uniform(minimum=20, maximum=100, latex_label='$f_8$', unit='Hz')
+#amplitude_8 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_8$')
+amplitude_8 = bilbywave.prior.OrderedAmplitude(order=3, base_name='amplitude', latex_label='$A_8$', minimum=1e-25, maximum=1e-21)
+beta_8 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_8$', boundary='reflective')
+delta_time_8 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_8$')
+phase_8 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_8$')
+
+# parameters for the ninth wavelet
+q_factor_9 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_9$', boundary='reflective')
+centre_frequency_9 = Uniform(minimum=20, maximum=100, latex_label='$f_9$', unit='Hz')
+#amplitude_9 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_9$')
+amplitude_9 = bilbywave.prior.OrderedAmplitude(order=4, base_name='amplitude', latex_label='$A_9$', minimum=1e-25, maximum=1e-21)
+beta_9 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_9$', boundary='reflective')
+delta_time_9 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_9$')
+phase_9 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_9$')
+
+# parameters for the tenth wavelet
+q_factor_10 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_10$', boundary='reflective')
+centre_frequency_10 = Uniform(minimum=20, maximum=100, latex_label='$f_10$', unit='Hz')
+#amplitude_10 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_10$')
+amplitude_10 = bilbywave.prior.OrderedAmplitude(order=5, base_name='amplitude', latex_label='$A_10$', minimum=1e-25, maximum=1e-21)
+beta_10 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_10$', boundary='reflective')
+delta_time_10 = Uniform(minimum=-0.5, maximum=0.5, latex_label='$\\delta_10$')
+phase_10 = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi_10$')

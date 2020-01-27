@@ -16,13 +16,14 @@ import bilbywave
 duration = 4.
 sampling_frequency = 2048.
 
-n_wavelets = 5
+n_wavelets = 10
 
 # Specify the output directory and the name of the simulation.
 outdir = 'outdir'
 #label = 'single_chirplet_{}'.format(n_wavelets)
-label = 'single_chirplet_multimodality_{}'.format(n_wavelets)
+#label = 'single_chirplet_multimodality_{}'.format(n_wavelets)
 #label = 'wavelet_{}'.format(n_wavelets)
+label = 'single_chirplet_multimodality_75M_{}'.format(n_wavelets)
 bilby.core.utils.setup_logger(outdir=outdir, label=label)
 
 # Set up a random seed for result reproducibility.  This is optional!
@@ -33,8 +34,8 @@ np.random.seed(88170235)
 # parameters, including masses of the two black holes (mass_1, mass_2),
 # spins of both black holes (a, tilt, phi), etc.
 injection_parameters = dict(
-    mass_1=100., mass_2=95., a_1=0.4, a_2=0.3, tilt_1=0.5, tilt_2=1.0,
-    phi_12=1.7, phi_jl=0.3, luminosity_distance=1000., theta_jn=0.4, psi=2.659,
+    mass_1=75., mass_2=70., a_1=0.4, a_2=0.3, tilt_1=0.5, tilt_2=1.0,
+    phi_12=1.7, phi_jl=0.3, luminosity_distance=750., theta_jn=0.4, psi=2.659,
     phase=1.3, geocent_time=1126259642.413, ra=1.375, dec=-1.2108)
 
 # Fixed arguments passed into the source model
@@ -89,8 +90,8 @@ likelihood = bilby.gw.likelihood.GravitationalWaveTransient(
     distance_marginalization=False, jitter_time=False)
 
 result = bilby.run_sampler(
-    likelihood=likelihood, priors=priors, sampler='dynesty', nlive=150,
-    outdir=outdir, label=label, walks=15,
+    likelihood=likelihood, priors=priors, sampler='dynesty', nlive=350,
+    outdir=outdir, label=label, walks=35,
     seed=int(time()), result_class=bilby.gw.result.CBCResult)
 
 # reconstruct the marginalised phase posterior
@@ -117,4 +118,3 @@ result.plot_corner(
         'geocent_time', 'n_wavelets', 'luminosity_distance', 'phase', 'psi',
         'ra', 'dec', 'ellipticity', 'log_likelihood'],
     filename=f'outdir/{label}_corner_common.png')
-
