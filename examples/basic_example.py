@@ -13,14 +13,14 @@ import bilbywave
 
 # Set the duration and sampling frequency of the data segment that we're
 # going to inject the signal into
-duration = 4.
-sampling_frequency = 2048.
+duration = 2.
+sampling_frequency = 512.
 
-n_wavelets = 1
+n_wavelets = 2
 
 # Specify the output directory and the name of the simulation.
 outdir = 'outdir'
-label = 'single_chirplet_{}'.format(n_wavelets)
+label = 'chirplet_{}'.format(n_wavelets)
 bilby.core.utils.setup_logger(outdir=outdir, label=label)
 
 # Set up a random seed for result reproducibility.  This is optional!
@@ -32,7 +32,7 @@ np.random.seed(88170235)
 # spins of both black holes (a, tilt, phi), etc.
 injection_parameters = dict(
     mass_1=100., mass_2=95., a_1=0.4, a_2=0.3, tilt_1=0.5, tilt_2=1.0,
-    phi_12=1.7, phi_jl=0.3, luminosity_distance=1000., theta_jn=0.4, psi=2.659,
+    phi_12=1.7, phi_jl=0.3, luminosity_distance=4000., theta_jn=0.4, psi=2.659,
     phase=1.3, geocent_time=1126259642.413, ra=1.375, dec=-1.2108)
 
 # Fixed arguments passed into the source model
@@ -62,11 +62,8 @@ test_like.parameters.update(injection_parameters.copy())
 
 # Set up prior, which is a dictionary
 # TODO: make nice prior class which builds this automatically
-prior_file = "single_wavelet.prior"
-try:
-    priors = bilby.core.prior.ConditionalPriorDict(prior_file)
-except AttributeError:
-    priors = bilby.core.prior.PriorDict(prior_file)
+prior_file = "double_wavelet.prior"
+priors = bilby.core.prior.ConditionalPriorDict(prior_file)
 priors['geocent_time'] = bilby.core.prior.Uniform(
     minimum=injection_parameters['geocent_time'] - 0.1,
     maximum=injection_parameters['geocent_time'] + 0.1, latex_label='$t_c$')
@@ -86,9 +83,9 @@ likelihood = bilby.gw.likelihood.GravitationalWaveTransient(
     distance_marginalization=False, jitter_time=False)
 
 result = bilby.run_sampler(
-    likelihood=likelihood, priors=priors, sampler='dynesty', nlive=500,
+    likelihood=likelihood, priors=priors, sampler='pymultinest', nlive=500,
     outdir=outdir, label=label, walks=50,
-    seed=int(time()), result_class=bilby.gw.result.CBCResult)
+    result_class=bilby.gw.result.CBCResult)
 
 # reconstruct the marginalised phase posterior
 # TODO: make this automatic, also allow for distance/time

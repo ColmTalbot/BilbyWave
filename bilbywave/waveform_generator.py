@@ -43,7 +43,7 @@ class MultiWavelet(WaveformGenerator):
                     model_strain[key] = old_strain[key] + new_strain[key]
         for key in model_strain:
             model_strain[key] *= np.exp(2j * self.parameters["phase"])
-            model_strain[key] /= self.parameters["luminosity_distance"] / 1000
+            model_strain[key] /= self.parameters["luminosity_distance"] / 1
         return model_strain
 
     @classmethod

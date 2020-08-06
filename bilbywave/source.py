@@ -9,6 +9,7 @@ def morlet_gabor_wavelet(
     ellipticity,
     delta_time,
     phase,
+    **waveform_kwargs
 ):
     """
     See equation (5) of https://arxiv.org/pdf/1410.3835.pdf
@@ -59,6 +60,7 @@ def chirplet(
     delta_time,
     phase,
     beta,
+    **waveform_kwargs
 ):
     """
     See equation (2) of https://arxiv.org/pdf/1804.03239.pdf
@@ -78,12 +80,25 @@ def chirplet(
     -------
     dict: dictionary of plus and cross waveforms
     """
+    minimum_frequency = waveform_kwargs.get("minimum_frequency", 0)
+    maximum_frequency = waveform_kwargs.get(
+        "minimum_frequency", frequency_array[-1]
+    )
+
     tau = q_factor / (2 * np.pi * centre_frequency)
     delta = np.arctan(np.pi * beta) / 2
-    delta_f = frequency_array - centre_frequency
     pi_beta = np.pi * beta
+    # minimum_frequency = max(minimum_frequency, centre_frequency - 6 / tau)
+    # maximum_frequency = min(maximum_frequency, centre_frequency + 6 / tau)
+    band = (
+        (frequency_array >= minimum_frequency)
+        & (frequency_array <= maximum_frequency)
+    )
 
-    h_plus = (
+    h_plus = np.zeros_like(frequency_array, dtype=complex)
+    frequency_array = frequency_array[band]
+    delta_f = frequency_array - centre_frequency
+    h_plus[band] = (
         amplitude
         * np.pi ** 0.5
         * tau

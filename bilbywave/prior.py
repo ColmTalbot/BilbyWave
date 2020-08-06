@@ -16,6 +16,7 @@ class OrderedAmplitude(ConditionalPowerLaw):
         self._previous_name = "_".join([base_name, str(order - 1)])
         self._required_variables = [self._previous_name]
         self.__class__.__name__ = "OrderedAmplitude"
+        self.__class__.__qualname__ = "OrderedAmplitude"
 
     def _condition(self, reference_parms, **kwargs):
         return dict(
@@ -26,4 +27,8 @@ class OrderedAmplitude(ConditionalPowerLaw):
         return Prior.__repr__(self)
 
     def get_instantiation_dict(self):
-        return Prior.get_instantiation_dict(self)
+        instantiation_dict = Prior.get_instantiation_dict(self)
+        for key, value in self.reference_params.items():
+            if key in instantiation_dict:
+                instantiation_dict[key] = value
+        return instantiation_dict
