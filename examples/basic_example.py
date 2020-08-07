@@ -4,6 +4,7 @@ Tutorial to demonstrate running parameter estimation on a reduced parameter
 space for an injected signal with a single wavelet.
 """
 from time import time
+
 import numpy as np
 import matplotlib.pyplot as plt
 import tqdm
@@ -36,7 +37,7 @@ injection_parameters = dict(
     phase=1.3, geocent_time=1126259642.413, ra=1.375, dec=-1.2108)
 
 # Fixed arguments passed into the source model
-waveform_arguments = dict(waveform_approximant='IMRPhenomPv2',
+waveform_arguments = dict(waveform_approximant='IMRPhenomXPHM',
                           reference_frequency=50., minimum_frequency=20.)
 
 # Create the waveform_generator using a LAL BinaryBlackHole source function
@@ -97,7 +98,7 @@ for ii in tqdm.tqdm(range(len(result.posterior))):
 result.posterior["phase"] = new_phases
 
 # do some plotting, plot the waveform and a few corner plots
-result.plot_waveform_posterior(interferometers=ifos, format="html", n_samples=1000)
+result.plot_waveform_posterior(interferometers=ifos, format="png", n_samples=1000)
 
 wavelet_params = ['q_factor', 'centre_frequency', 'amplitude', 'delta_time',
                   'phase', 'beta']
