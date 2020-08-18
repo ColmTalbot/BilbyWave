@@ -103,7 +103,7 @@ for ii in tqdm.tqdm(range(len(result.posterior))):
 result.posterior["phase"] = new_phases
 
 # do some plotting, plot the waveform and a few corner plots
-result.plot_waveform_posterior(interferometers=ifos, format="png", n_samples=1000)
+result.plot_waveform_posterior(interferometers=ifos, format="pdf", n_samples=1000)
 
 for ii in range(n_wavelets):
     if ii == 0:
@@ -114,10 +114,10 @@ for ii in range(n_wavelets):
 
     fig = result.plot_corner(
         parameters=[f'{par}_{ii}' for par in wavelet_params],
-        filename=f'{outdir}/{label}_corner_{ii}.png')
+        filename=f'{outdir}/{label}_corner_{ii}.pdf')
     plt.close()
 result.plot_corner(
     parameters=[
         'geocent_time', 'luminosity_distance', 'phase', 'psi',
         'ra', 'dec', 'ellipticity', 'log_likelihood'],
-    filename=f'{outdir}/{label}_corner_common.png')
+    filename=f'{outdir}/{label}_corner_common.pdf')
