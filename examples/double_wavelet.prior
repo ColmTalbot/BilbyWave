@@ -10,7 +10,7 @@ ellipticity = Uniform(minimum=-1, maximum=1, name=None, latex_label='$\\epsilon$
 # parameters for the first wavelet
 q_factor_0 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_0$')
 centre_frequency_0 = Uniform(minimum=20, maximum=1024, latex_label='$f_0$', unit='Hz')
-amplitude_0 = LogUniform(minimum=1e-25, maximum=1e-21, latex_label='$A_0$')
+amplitude_0 = LogUniform(minimum=1e-25, maximum=1e-19, latex_label='$A_0$')
 beta_0 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_0$')
 delta_time_0 = 0.0
 phase_0 = 0.0
@@ -18,7 +18,7 @@ phase_0 = 0.0
 # parameters for the first wavelet
 q_factor_1 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_1$')
 centre_frequency_1 = Uniform(minimum=20, maximum=1024, latex_label='$f_1$', unit='Hz')
-amplitude_1 = bilbywave.prior.OrderedAmplitude(order=1, minimum=1e-25, maximum=1e-21, base_name="amplitude", latex_label='$A_1$')
+amplitude_1 = bilbywave.prior.OrderedAmplitude(order=1, minimum=0.0, maximum=1e-19, base_name="amplitude", latex_label='$A_1$')
 beta_1 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_1$')
 delta_time_1 = Uniform(minimum=-0.5, maximum=0.5, latex_label="$t_1$")
 phase_1 = Uniform(minimum=0, maximum=np.pi, latex_label="$\\phi_1$", boundary="periodic")
