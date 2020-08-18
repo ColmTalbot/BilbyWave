@@ -153,7 +153,6 @@ class SpikeSlabPowerLawPrior(Prior):
         self.alpha = alpha
 
     def powerlaw_rescale(self, val):
-        self.test_valid_for_rescaling(val)
         if self.alpha == -1:
             return self.minimum * np.exp(val * np.log(self.maximum / self.minimum))
         else:
@@ -173,7 +172,7 @@ class SpikeSlabPowerLawPrior(Prior):
             _cdf = (np.log(val / self.minimum) /
                     np.log(self.maximum / self.minimum))
         else:
-            _cdf = np.atleast_1d(val ** (self.alpha + 1) - self.minimum ** (self.alpha + 1)) / \
+            _cdf = (val ** (self.alpha + 1) - self.minimum ** (self.alpha + 1)) / \
                 (self.maximum ** (self.alpha + 1) - self.minimum ** (self.alpha + 1))
         _cdf = np.minimum(_cdf, 1)
         _cdf = np.maximum(_cdf, 0)
