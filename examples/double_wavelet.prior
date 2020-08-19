@@ -1,6 +1,6 @@
 # parameters consistent across all wavelets
 luminosity_distance = 1
-n_wavelets = Uniform(minimum=0, maximum=2, latex_label="$n$")
+n_wavelets = Uniform(minimum=1, maximum=3, latex_label="$n$")
 ra = Uniform(minimum=0, maximum=2 * np.pi, latex_label='$\\alpha$', boundary='periodic')
 dec = Cosine(latex_label='$\\delta$', minimum=-np.pi / 2, maximum=np.pi / 2)
 psi = Uniform(minimum=0, maximum=np.pi / 2, name=None, latex_label='$\\psi$', unit=None, boundary='periodic')
