@@ -32,3 +32,47 @@ class OrderedAmplitude(ConditionalPowerLaw):
             if key in instantiation_dict:
                 instantiation_dict[key] = value
         return instantiation_dict
+
+
+class Discrete(Prior):
+    """
+    A unit spaced discrete prior class.
+    
+    Parameters
+    ----------
+    minimum: int
+        The minimum allowed value (inclusive)
+    maximum: int
+        The maximum allowed value (inclusive)
+    """
+
+    def __init__(
+        self, minimum, maximum, name=None, latex_label=None, boundary=None
+    ):
+        super(Discrete, self).__init__(
+            name=name, latex_label=latex_label, boundary=boundary
+        )
+        if minimum >= maximum:
+            raise ValueError(
+                "Maximum must be greater than minimum for discrete prior"
+            )
+        self.minimum = minimum
+        self.maximum = maximum
+
+    @property
+    def n_bins(self):
+        return (self.maximum - self.minimum + 1)
+
+    def prob(self, val):
+        prob = 1 / self.n_bins
+        return prob
+
+    def rescale(self, val):
+        val = np.atleast_1d(val)
+        val *= self.n_bins
+        val += self.minimum
+        if isinstance(val, (float, int)) or len(val) == 1:
+            val = int(val)
+        else:
+            val = val.astype(int)
+        return val
