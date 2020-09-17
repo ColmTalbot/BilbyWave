@@ -67,10 +67,17 @@ priors = bilby.core.prior.ConditionalPriorDict(priors)
 
 samples = priors.sample(10000)
 
+print(f"Fraction of samples not in spike: {np.sum(samples['amplitude_1'] > 0)/len(samples['amplitude_1'])}")
+
 plt.scatter(samples['amplitude_0'],samples['amplitude_1'])
 plt.xlim(0,1e-21)
 plt.ylim(0,1e-21)
 plt.plot([0,1e-21],[0,1e-21],color='k')
+plt.show()
+
+plt.clf()
+plt.hist(samples['amplitude_1'], bins=50, density=True)
+plt.xlabel('Ampltiude 1')
 plt.show()
 
 

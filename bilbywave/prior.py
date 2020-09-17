@@ -33,34 +33,49 @@ class OrderedAmplitude(ConditionalPowerLaw):
                 instantiation_dict[key] = value
         return instantiation_dict
 
+
+class Discrete(Prior):
+    """
+    A unit spaced discrete prior class.
+
+    Parameters
+    ----------
+    minimum: int
+        The minimum allowed value (inclusive)
+    maximum: int
+        The maximum allowed value (inclusive)
+    """
+
+    def __init__(
+        self, minimum, maximum, name=None, latex_label=None, boundary=None
+    ):
+        super(Discrete, self).__init__(
+            name=name, latex_label=latex_label, boundary=boundary
+        )
+        if minimum >= maximum:
+            raise ValueError(
+                "Maximum must be greater than minimum for discrete prior"
+            )
+        self.minimum = minimum
+        self.maximum = maximum
+
+    @property
+    def n_bins(self):
+        return (self.maximum - self.minimum + 1)
+
     def prob(self, val):
-        if not isinstance(val, float):
-            arr = self.slab_prior.prob(val) * self.slab_probability
-            at_peak = (val==self.peak)
-            arr[at_peak] = np.inf * (1-self.slab_probability)
+        prob = 1 / self.n_bins
+        return prob
 
-            return arr
-
+    def rescale(self, val):
+        val = np.atleast_1d(val)
+        val *= self.n_bins
+        val += self.minimum
+        if isinstance(val, (float, int)) or len(val) == 1:
+            val = int(val)
         else:
-            if val == self.peak:
-                return np.inf * (1-self.slab_probability)
-            else:
-                return self.slab_prior.prob(val) * self.slab_probability
-
-
-    def cdf(self, val):
-        if not isinstance(val, float):
-            arr = self.slab_prior.cdf(val) * self.slab_probability
-            after_peak = (val>self.peak)
-            arr[after_peak] = self.slab_prior.cdf(val[after_peak]) * self.slab_probability + (1-self.slab_probability)
-
-            return arr
-
-        else:
-            if val <= self.peak:
-                return self.slab_prior.cdf(val) * self.slab_probability
-            else:
-                return self.slab_prior.cdf(val) * self.slab_probability + (1-self.slab_probability)
+            val = val.astype(int)
+        return val
 
 class SpikeSlabPowerLawPrior(Prior):
     def __init__(self, alpha, minimum, maximum, peak, slab_probability, name=None, latex_label=None,
@@ -129,9 +144,9 @@ class SpikeSlabPowerLawPrior(Prior):
         if not isinstance(val, float):
             arr = np.zeros(len(val))
 
-            before_peak = (val < L_min)
-            after_peak = (val > 1-L_max)
-            at_peak = (val > L_min)*(val < 1-L_max)
+            before_peak = (val <= L_min)
+            after_peak = (val >= 1-L_max)
+            at_peak = ~(before_peak | after_peak)
 
             arr[before_peak] += self.powerlaw_rescale(val[before_peak]/self.slab_probability)
             arr[after_peak] += self.powerlaw_rescale((val[after_peak] - (1-self.slab_probability))/self.slab_probability)
