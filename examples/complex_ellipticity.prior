@@ -1,0 +1,25 @@
+# parameters consistent across all wavelets
+luminosity_distance = 1
+n_wavelets = 2
+ra = Uniform(minimum=0, maximum=2 * np.pi, latex_label='$\\alpha$', boundary='periodic')
+dec = Cosine(latex_label='$\\delta$', minimum=-np.pi / 2, maximum=np.pi / 2)
+psi = Uniform(minimum=0, maximum=np.pi / 2, name=None, latex_label='$\\psi$', unit=None, boundary='periodic')
+phase = Uniform(minimum=0, maximum=np.pi, latex_label='$\\phi$', boundary="periodic")
+ellipticity_mag = PowerLaw(alpha=1, minimum=0, maximum=1, name=None, latex_label='$|\\epsilon|$')
+ellipticity_phase = Uniform(minimum=0, maximum=2*np.pi, latex_label='$\\phi_e$', boundary="periodic")
+
+# parameters for the first wavelet
+q_factor_0 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_0$')
+centre_frequency_0 = Uniform(minimum=20, maximum=1024, latex_label='$f_0$', unit='Hz')
+amplitude_0 = LogUniform(minimum=1e-25, maximum=1e-19, latex_label='$A_0$')
+beta_0 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_0$')
+delta_time_0 = 0.0
+phase_0 = 0.0
+
+# parameters for the second wavelet
+q_factor_1 = Uniform(minimum=0.01, maximum=40, latex_label='$Q_1$')
+centre_frequency_1 = Uniform(minimum=20, maximum=1024, latex_label='$f_1$', unit='Hz')
+amplitude_1 = bilbywave.prior.OrderedSpikeSlabAmplitude(order=1, minimum=0.0, maximum=1e-19, peak=0, slab_probability=0.95, base_name="amplitude", latex_label='$A_1$')
+beta_1 = Uniform(minimum=-0.9479867173951659, maximum=0.9479867173951659, latex_label='$\\beta_1$')
+delta_time_1 = Uniform(minimum=-0.5, maximum=0.5, latex_label="$t_1$")
+phase_1 = Uniform(minimum=0, maximum=np.pi, latex_label="$\\phi_1$", boundary="periodic")
